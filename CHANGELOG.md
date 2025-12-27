@@ -1,6 +1,11 @@
 # Changelog
 
-# v0.3.0
+## v0.4.0
+- Unified app into a single menu-driven main: Setup (configurator), Solve & Animation, and Demo (interactive).
+- Centered animation HUD: step/next banner, steps list under the board with start state as step 0, and aligned buttons with correct hitboxes.
+- Reduced UI flicker, spaced controls/help text, and kept solver/animation in sync with configured start colors.
+
+## v0.3.0
 - Added configurator tool to interactively set peg colors (click to cycle empty/red/green, print mappings in dict and multi-line formats).
 - Improved mapping readability in configurator (color names shown in UI messages).
 
