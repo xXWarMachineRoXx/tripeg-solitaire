@@ -2,6 +2,16 @@
 
 A single-file, menu-driven Pygame app for the triangular peg solitaire variant, with configurator, solver, and animated playback from the game [machinarium](https://store.epicgames.com/en-US/p/machinarium-5e6c71)
 
+
+
+![Platform](https://img.shields.io/badge/platform-Windows-blue)
+![Build](https://img.shields.io/badge/build-PyInstaller-green)
+
+### Click this button to download
+
+[![Download for Windows](https://img.shields.io/badge/Download-Windows%20EXE-blue?style=for-the-badge&logo=windows)](https://github.com/xXWarMachineRoXx/tripeg-solitaire/releases/latest)
+
+
 ## Demo
 
 [![Triangular Peg Puzzle – Solver & Animation Demo](https://img.youtube.com/vi/7BQTCahj8Q0/maxresdefault.jpg)](https://youtu.be/7BQTCahj8Q0)
@@ -59,10 +69,14 @@ The solver aims to make the inner triangle `{2, 6, 10, 9, 8, 5}` all green.
 - Tested on Windows with Python + Pygame. 
 - `requirements.txt` lists runtime dependencies.
 
-## Windows Download
 
-Download the standalone Windows executable from the Releases page:
 
-👉 https://github.com/<owner>/<repo>/releases
+
+![Platform](https://img.shields.io/badge/platform-Windows-blue)
+![Build](https://img.shields.io/badge/build-PyInstaller-green)
+
+### Click this button to download
+
+[![Download for Windows](https://img.shields.io/badge/Download-Windows%20EXE-blue?style=for-the-badge&logo=windows)](https://github.com/xXWarMachineRoXx/tripeg-solitaire/releases/latest)
 
 No Python installation required.
