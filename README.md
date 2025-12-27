@@ -7,7 +7,7 @@ A single-file, menu-driven Pygame app for the triangular peg solitaire variant, 
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![Build](https://img.shields.io/badge/build-PyInstaller-green)
 
-### Click this button to download
+ ##  📦Downloads: 
 
 [![Download for Windows](https://img.shields.io/badge/Download-Windows%20EXE-blue?style=for-the-badge&logo=windows)](https://github.com/xXWarMachineRoXx/tripeg-solitaire/releases/latest)
 
