@@ -7,7 +7,8 @@ A single-file, menu-driven Pygame app for the triangular peg solitaire variant, 
 
 # Reference
 
-[Video](https://youtube.com/clip/UgkxN6OXSNCYPJnrYe-ZEIdXqFh6eK1daZ9K?si=k87ZB6a8BCIPeNBL) 
+[![Reference](https://img.youtube.com/vi/4xb3IImki-4/maxresdefault.jpg)](https://youtu.be/4xb3IImki-4)
+
 
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![Build](https://img.shields.io/badge/build-PyInstaller-green)
