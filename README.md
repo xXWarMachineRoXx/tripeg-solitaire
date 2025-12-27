@@ -1,7 +1,9 @@
+
+<img width="1222" height="325" alt="machinarium-gitjib nammmer" src="https://github.com/user-attachments/assets/4ead73c8-fb1b-4be4-a70e-6ee57f29c799" />
+
 # Triangular Peg Puzzle
 
 A single-file, menu-driven Pygame app for the triangular peg solitaire variant, with configurator, solver, and animated playback from the game [machinarium](https://store.epicgames.com/en-US/p/machinarium-5e6c71)
-
 
 
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
