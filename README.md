@@ -5,6 +5,9 @@
 
 A single-file, menu-driven Pygame app for the triangular peg solitaire variant, with configurator, solver, and animated playback from the game [machinarium](https://store.epicgames.com/en-US/p/machinarium-5e6c71)
 
+# Reference
+
+[Video](https://youtube.com/clip/UgkxN6OXSNCYPJnrYe-ZEIdXqFh6eK1daZ9K?si=k87ZB6a8BCIPeNBL) 
 
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![Build](https://img.shields.io/badge/build-PyInstaller-green)
