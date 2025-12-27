@@ -58,3 +58,11 @@ The solver aims to make the inner triangle `{2, 6, 10, 9, 8, 5}` all green.
 ## Notes
 - Tested on Windows with Python + Pygame. 
 - `requirements.txt` lists runtime dependencies.
+
+## Windows Download
+
+Download the standalone Windows executable from the Releases page:
+
+👉 https://github.com/<owner>/<repo>/releases
+
+No Python installation required.
