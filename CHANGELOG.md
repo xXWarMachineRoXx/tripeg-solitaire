@@ -1,5 +1,17 @@
 # Changelog
 
+## 🎉 v1.0.0 (LTS Release · Latest · Stable)
+- Unified menu-driven main (Setup configurator, Solve & Animation, Demo).
+- Solver targets inner-triangle goal; animation supports play/pause and prev/next with ring highlights.
+- Step list under the board (start state = step 0); aligned controls and centered HUD with reduced flicker.
+- Corrected board edges and rotation directions.
+
+### Recap
+- `main.py` hosts a single menu for Setup, Solve & Animation, and Demo (interactive rotation).
+- Configurator sets start colors; solver runs path with animated playback and a step list.
+- UI polish: centered HUD, non-flickering controls, and spaced help text.
+
+
 ## v0.4.0
 - Unified app into a single menu-driven main: Setup (configurator), Solve & Animation, and Demo (interactive).
 - Centered animation HUD: step/next banner, steps list under the board with start state as step 0, and aligned buttons with correct hitboxes.
