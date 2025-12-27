@@ -2,6 +2,9 @@
 
 A single-file, menu-driven Pygame app for the triangular peg solitaire variant, with configurator, solver, and animated playback.
 
+## Demo
+- [Video: media/tripeg-demo.mp4](media/tripeg-demo.mp4)
+
 ## Features
 - Unified menu:
   - **Setup (Configurator)**: click pegs to cycle empty → red → green; save start layout.
@@ -50,5 +53,5 @@ python main.py
 The solver aims to make the inner triangle `{2, 6, 10, 9, 8, 5}` all green.
 
 ## Notes
-- Tested on Windows with Python + Pygame.
+- Tested on Windows with Python + Pygame. 
 - `requirements.txt` lists runtime dependencies.
