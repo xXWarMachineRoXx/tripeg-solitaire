@@ -3,7 +3,10 @@
 A single-file, menu-driven Pygame app for the triangular peg solitaire variant, with configurator, solver, and animated playback.
 
 ## Demo
-- [Video: media/tripeg-demo.mp4](media/tripeg-demo.mp4)
+
+[![Triangular Peg Puzzle – Solver & Animation Demo](https://img.youtube.com/vi/7BQTCahj8Q0/maxresdefault.jpg)](https://youtu.be/7BQTCahj8Q0)
+
+
 
 ## Features
 - Unified menu:
