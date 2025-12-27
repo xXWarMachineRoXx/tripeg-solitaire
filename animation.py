@@ -82,17 +82,17 @@ INNER_TRIANGLE = {2, 6, 10, 9, 8, 5}
 # Start state
 START_COLORS = {
     1: RED,
-    2: GREEN,
-    3: RED,
-    4: GREEN,
-    5: RED,
-    6: GREEN,
-    7: GREEN,
-    8: RED,
-    9: GREEN,
-    10: RED,
-    11: GREEN,
-    12: RED,
+ 2: GREEN,
+ 3: RED,
+ 4: GREEN,
+ 5: RED,
+ 6: GREEN,
+ 7: RED,
+ 8: GREEN,
+ 9: RED,
+ 10: GREEN,
+ 11: RED,
+ 12: GREEN,
 }
 
 
