@@ -15,7 +15,6 @@ WHITE = (240, 240, 240)
 BLACK = (20, 20, 20)
 RED = (200, 60, 60)
 GREEN = (60, 180, 60)
-BLUE = (60, 160, 220)
 GRAY = (120, 120, 120)
 YELLOW = (255, 200, 0)
 
@@ -45,7 +44,7 @@ def build_layout():
     return nodes, coords
 
 
-DIRS = [(0, 1), (1, 0), (1, -1)]  # horizontal, down-right, down-left
+DIRS = [(0, 1), (1, 0), (1, 1)]  # base lattice directions
 
 
 def build_edges(coords):
@@ -55,6 +54,14 @@ def build_edges(coords):
             b = coords.get((r + dr, c + dc))
             if b:
                 edges.add(tuple(sorted((a, b))))
+    # Apply manual adjustments to match the desired graph
+    remove_edges = {(4, 9), (5, 10), (8, 12)}
+    add_edges = {(5, 8), (7, 10), (10, 12),(9, 11),(6, 9)}
+
+    edges = {tuple(sorted(e)) for e in edges}
+    edges -= {tuple(sorted(e)) for e in remove_edges}
+    edges |= {tuple(sorted(e)) for e in add_edges}
+
     return sorted(edges)
 
 
@@ -72,14 +79,78 @@ def build_valid_jumps(coords):
 NODES, COORDS = build_layout()
 EDGES = build_edges(COORDS)
 VALID_JUMPS = build_valid_jumps(COORDS)
+INNER_TRIANGLE = {2, 6, 10, 9, 8, 5}
+
+# Precompute rows for text logging (node order matches visual rows)
+ROW_NODES = []
+idx = 1
+for length in ROW_LENGTHS:
+    ROW_NODES.append([idx + i for i in range(length)])
+    idx += length
 
 # -------------------------------------------------
-# Initial state (True = peg present, False = empty)
-# Start with the very top hole empty (node 1)
+# Initial state (peg colors per node; None would mean empty)
+# Color layout approximates the reference puzzle.
 # -------------------------------------------------
-state = {i: True for i in NODES}
-state[1] = False
 label_map = {i: i for i in NODES}
+peg_colors = {
+    # Row 0 (3 nodes)
+    1: RED,
+    2: GREEN,
+    3: RED,
+    4: GREEN,
+    5: RED,
+    6: GREEN,
+    7: GREEN,
+    8: RED,
+    9: GREEN,
+    10: RED,
+    11: RED,
+    12: GREEN,
+}
+# START_COLORS = {
+#      1: RED,
+#     2: GREEN,
+#     3: RED,
+#     4: GREEN,
+#     5: RED,
+#     6: GREEN,
+#     7: GREEN,
+#     8: RED,
+#     9: GREEN,
+#     10: RED,
+#     11: RED,
+#     12: GREEN,
+# }
+state = {i: True for i in NODES}  # kept for compatibility, not used for moves
+
+
+def color_char(node_id):
+    color = peg_colors.get(node_id)
+    if color == RED:
+        return "R"
+    if color == GREEN:
+        return "G"
+    return "."
+
+
+def format_state_lines():
+    lines = []
+    for row in ROW_NODES:
+        parts = []
+        for node in row:
+            label = label_map.get(node, node)
+            parts.append(f"{node}:{label}:{color_char(node)}")
+        lines.append(" ".join(parts))
+    return lines
+
+
+def log_state(prefix=""):
+    lines = format_state_lines()
+    header = f"[STATE] {prefix}" if prefix else "[STATE]"
+    print(header)
+    for ln in lines:
+        print("  " + ln)
 
 def is_valid_jump(source, jumped, target):
     """Validate a jump move"""
@@ -103,11 +174,11 @@ def apply_action(source, jumped, target):
 
 def count_pegs():
     """Count remaining pegs"""
-    return sum(1 for v in state.values() if v)
+    return sum(1 for v in peg_colors.values() if v is not None)
 
 def check_win():
-    """Check if game is won (1 peg remaining)"""
-    return count_pegs() == 1
+    """Win when all inner-triangle nodes are green."""
+    return all(peg_colors.get(node) == GREEN for node in INNER_TRIANGLE)
 
 # -------------------------------------------------
 # UI helpers
@@ -124,8 +195,8 @@ def draw_board(selected, message=""):
         "Click 1: rotate ring clockwise",
         "Click 4: rotate ring counter-clockwise",
         "Ring A: 1-2-6-9-8-4 around center 5",
-        "Click 3: rotate ring clockwise (center 6)",
-        "Click 7: rotate ring counter-clockwise (center 6)",
+        "Click 3: rotate ring counter-clockwise (center 6)",
+        "Click 7: rotate ring clockwise (center 6)",
         "Ring B: 2-3-7-10-9-5 around center 6",
         "Click 11: rotate ring clockwise (center 9)",
         "Click 12: rotate ring counter-clockwise (center 9)",
@@ -155,8 +226,9 @@ def draw_board(selected, message=""):
     # Draw nodes
     for i, (x, y) in NODES.items():
         # Draw peg or empty hole
-        if state[i]:
-            pygame.draw.circle(SCREEN, BLUE, (int(x), int(y)), RADIUS)
+        color = peg_colors.get(i)
+        if color is not None:
+            pygame.draw.circle(SCREEN, color, (int(x), int(y)), RADIUS)
         else:
             pygame.draw.circle(SCREEN, GRAY, (int(x), int(y)), RADIUS, 2)
         
@@ -192,8 +264,8 @@ RING_B = [2, 3, 7, 10, 9, 5]       # center 6
 RING_C = [5, 6, 10, 12, 11, 8]     # center 9
 
 
-def rotate_ring(cycle, clockwise=True):
-    peg_values = [state[i] for i in cycle]
+def rotate_ring(cycle, clockwise=True, name=""):
+    peg_values = [peg_colors.get(i) for i in cycle]
     label_values = [label_map[i] for i in cycle]
     if clockwise:
         peg_values = peg_values[-1:] + peg_values[:-1]
@@ -202,8 +274,9 @@ def rotate_ring(cycle, clockwise=True):
         peg_values = peg_values[1:] + peg_values[:1]
         label_values = label_values[1:] + label_values[:1]
     for i, v, lbl in zip(cycle, peg_values, label_values):
-        state[i] = v
         label_map[i] = lbl
+        peg_colors[i] = v
+    log_state(f"{name} {'CW' if clockwise else 'CCW'}")
 
 
 # -------------------------------------------------
@@ -231,34 +304,48 @@ while True:
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_r:  # Reset game
-                state = {i: True for i in NODES}
-                state[1] = False
                 label_map = {i: i for i in NODES}
+                peg_colors = {
+                    1: RED,
+                    2: RED,
+                    3: GREEN,
+                    4: GREEN,
+                    5: RED,
+                    6: RED,
+                    7: GREEN,
+                    8: GREEN,
+                    9: RED,
+                    10: GREEN,
+                    11: RED,
+                    12: GREEN,
+                }
+                state = {i: True for i in NODES}
                 selected = []
                 message = "Game reset"
                 message_timer = 2000
+                log_state("Reset")
         
         if event.type == pygame.MOUSEBUTTONDOWN:
             node = node_at_pos(event.pos)
             if node is not None:
                 selected = [node]
                 if node == 1:
-                    rotate_ring(RING_A, clockwise=True)
+                    rotate_ring(RING_A, clockwise=True, name="Ring A")
                     message = "Ring A rotated clockwise"
                 elif node == 4:
-                    rotate_ring(RING_A, clockwise=False)
+                    rotate_ring(RING_A, clockwise=False, name="Ring A")
                     message = "Ring A rotated counter-clockwise"
                 elif node == 3:
-                    rotate_ring(RING_B, clockwise=True)
-                    message = "Ring B rotated clockwise"
-                elif node == 7:
-                    rotate_ring(RING_B, clockwise=False)
+                    rotate_ring(RING_B, clockwise=False, name="Ring B")
                     message = "Ring B rotated counter-clockwise"
+                elif node == 7:
+                    rotate_ring(RING_B, clockwise=True, name="Ring B")
+                    message = "Ring B rotated clockwise"
                 elif node == 11:
-                    rotate_ring(RING_C, clockwise=True)
+                    rotate_ring(RING_C, clockwise=True, name="Ring C")
                     message = "Ring C rotated clockwise"
                 elif node == 12:
-                    rotate_ring(RING_C, clockwise=False)
+                    rotate_ring(RING_C, clockwise=False, name="Ring C")
                     message = "Ring C rotated counter-clockwise"
                 else:
                     message = "Use 1/4, 3/7, 11/12 to rotate"
