@@ -1,6 +1,6 @@
 # Triangular Peg Puzzle
 
-A single-file, menu-driven Pygame app for the triangular peg solitaire variant, with configurator, solver, and animated playback.
+A single-file, menu-driven Pygame app for the triangular peg solitaire variant, with configurator, solver, and animated playback from the game [machinarium](https://store.epicgames.com/en-US/p/machinarium-5e6c71)
 
 ## Demo
 
